@@ -43,3 +43,44 @@ export const registerService = async (data) => {
         }
     }
 }
+
+export const loginService = async (data) => {
+    let { email, password } = data
+
+    email = email.toLowerCase()
+
+    const user = await findUserByEmail(email)
+
+    if (!user) {
+        throw new ApiError(401, "Invalid email or password")
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(
+        password,
+        user.password
+    )
+
+    if (!isPasswordCorrect) {
+        throw new ApiError(401, "Invalid email or password")
+    }
+
+    if (!user.isActive) {
+        throw new ApiError(403, "User account is deactivated")
+    }
+
+    const token = generateToken({
+        id: user.id,
+        role: user.role
+    })
+
+    return {
+        token,
+        user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role
+        }
+    }
+}
+
