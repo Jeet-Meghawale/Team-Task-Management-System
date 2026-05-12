@@ -51,3 +51,16 @@ export const loginUser = async (req, res, next) => {
     }
 }
 
+export const getCurrentUser = async (req, res, next) => {
+    try {
+        return res.status(200).json(
+            new ApiResponse(
+                true,
+                "Current user fetched successfully",
+                req.user
+            )
+        )
+    } catch (error) {
+        next(error)
+    }
+}
