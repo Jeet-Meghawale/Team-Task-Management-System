@@ -8,7 +8,7 @@
     "start": "node src/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jeet Meghawale",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.22.0",
