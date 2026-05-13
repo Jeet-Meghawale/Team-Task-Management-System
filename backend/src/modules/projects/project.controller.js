@@ -1,5 +1,5 @@
 import ApiResponse from "../../utils/apiResponse.js"
-
+import asyncHandler from "../../utils/asyncHandler.js"
 import {
     createProjectService,
     getProjectsService,
@@ -9,141 +9,112 @@ import {
     assignMembersService
 } from "./project.service.js"
 
-export const createProject = async (
+export const createProject = asyncHandler(async (
     req,
-    res,
-    next
+    res
 ) => {
-    try {
-        const project = await createProjectService(
-            req.body,
-            req.user.id
-        )
+    const project = await createProjectService(
+        req.body,
+        req.user.id
+    )
 
-        return res.status(201).json(
-            new ApiResponse(
-                true,
-                "Project created successfully",
-                project
-            )
+    return res.status(201).json(
+        new ApiResponse(
+            true,
+            "Project created successfully",
+            project
         )
-    } catch (error) {
-        next(error)
-    }
+    )
 }
+)
 
-export const getProjects = async (
-    req,
-    res,
-    next
-) => {
-    try {
-        const page = Number(req.query.page) || 1
-        const limit = Number(req.query.limit) || 10
-        const search = req.query.search || ""
+export const getProjects = asyncHandler(async (req, res) => {
 
-        const projects = await getProjectsService({
-            page,
-            limit,
-            search
-        })
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 10
+    const search = req.query.search || ""
 
-        return res.status(200).json(
-            new ApiResponse(
-                true,
-                "Projects fetched successfully",
-                projects
-            )
+    const projects = await getProjectsService({
+        page,
+        limit,
+        search
+    })
+
+    return res.status(200).json(
+        new ApiResponse(
+            true,
+            "Projects fetched successfully",
+            projects
         )
-    } catch (error) {
-        next(error)
-    }
-}
+    )
 
-export const getSingleProject = async (
+})
+
+export const getSingleProject = asyncHandler(async (
     req,
-    res,
-    next
+    res
 ) => {
-    try {
-        const project =
-            await getSingleProjectService(
-                req.params.id
-            )
 
-        return res.status(200).json(
-            new ApiResponse(
-                true,
-                "Project fetched successfully",
-                project
-            )
+    const project =
+        await getSingleProjectService(
+            req.params.id
         )
-    } catch (error) {
-        next(error)
-    }
-}
 
-export const updateProject = async (
-    req,
-    res,
-    next
-) => {
-    try {
-        const project =
-            await updateProjectService(
-                req.params.id,
-                req.body
-            )
-
-        return res.status(200).json(
-            new ApiResponse(
-                true,
-                "Project updated successfully",
-                project
-            )
+    return res.status(200).json(
+        new ApiResponse(
+            true,
+            "Project fetched successfully",
+            project
         )
-    } catch (error) {
-        next(error)
-    }
-}
+    )
+})
 
-export const deleteProject = async (
+export const updateProject = asyncHandler(async (
     req,
-    res,
-    next
+    res
 ) => {
-    try {
-        await deleteProjectService(req.params.id)
-
-        return res.status(200).json(
-            new ApiResponse(
-                true,
-                "Project deleted successfully"
-            )
-        )
-    } catch (error) {
-        next(error)
-    }
-}
-
-export const assignMembers = async (
-    req,
-    res,
-    next
-) => {
-    try {
-        await assignMembersService(
+    const project =
+        await updateProjectService(
             req.params.id,
-            req.body.userIds
+            req.body
         )
 
-        return res.status(200).json(
-            new ApiResponse(
-                true,
-                "Members assigned successfully"
-            )
+    return res.status(200).json(
+        new ApiResponse(
+            true,
+            "Project updated successfully",
+            project
         )
-    } catch (error) {
-        next(error)
-    }
-}
+    )
+})
+
+export const deleteProject = asyncHandler(async (
+    req,
+    res
+) => {
+    await deleteProjectService(req.params.id)
+
+    return res.status(200).json(
+        new ApiResponse(
+            true,
+            "Project deleted successfully"
+        )
+    )
+})
+
+export const assignMembers = asyncHandler(async (
+    req,
+    res
+) => {
+    await assignMembersService(
+        req.params.id,
+        req.body.userIds
+    )
+
+    return res.status(200).json(
+        new ApiResponse(
+            true,
+            "Members assigned successfully"
+        )
+    )
+})
