@@ -3,7 +3,7 @@ import ApiResponse from "../../utils/apiResponse.js"
 import {
   createCommentService,
   getTaskCommentsService
-} from "./comment.service.js"
+} from "./comment.services.js"
 
 
 export const createComment = async (
