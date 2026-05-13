@@ -18,3 +18,7 @@ export const createProjectSchema = z.object({
         "ON_HOLD"
     ]).optional()
 })
+
+export const assignMembersSchema = z.object({
+  userIds: z.array(z.string().uuid())
+})

@@ -2,7 +2,11 @@ import ApiResponse from "../../utils/apiResponse.js"
 
 import {
     createProjectService,
-    getProjectsService
+    getProjectsService,
+    getSingleProjectService,
+    updateProjectService,
+    deleteProjectService,
+    assignMembersService
 } from "./project.service.js"
 
 export const createProject = async (
@@ -49,6 +53,94 @@ export const getProjects = async (
                 true,
                 "Projects fetched successfully",
                 projects
+            )
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getSingleProject = async (
+    req,
+    res,
+    next
+) => {
+    try {
+        const project =
+            await getSingleProjectService(
+                req.params.id
+            )
+
+        return res.status(200).json(
+            new ApiResponse(
+                true,
+                "Project fetched successfully",
+                project
+            )
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const updateProject = async (
+    req,
+    res,
+    next
+) => {
+    try {
+        const project =
+            await updateProjectService(
+                req.params.id,
+                req.body
+            )
+
+        return res.status(200).json(
+            new ApiResponse(
+                true,
+                "Project updated successfully",
+                project
+            )
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const deleteProject = async (
+    req,
+    res,
+    next
+) => {
+    try {
+        await deleteProjectService(req.params.id)
+
+        return res.status(200).json(
+            new ApiResponse(
+                true,
+                "Project deleted successfully"
+            )
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const assignMembers = async (
+    req,
+    res,
+    next
+) => {
+    try {
+        await assignMembersService(
+            req.params.id,
+            req.body.userIds
+        )
+
+        return res.status(200).json(
+            new ApiResponse(
+                true,
+                "Members assigned successfully"
             )
         )
     } catch (error) {

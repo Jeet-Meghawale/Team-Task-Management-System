@@ -56,3 +56,81 @@ export const getProjectsRepository = async ({
   })
 }
 
+export const getSingleProjectRepository = async (
+  id
+) => {
+  return prisma.project.findUnique({
+    where: {
+      id
+    },
+
+    include: {
+      creator: {
+        select: {
+          id: true,
+          name: true,
+          email: true
+        }
+      },
+
+      members: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              role: true
+            }
+          }
+        }
+      },
+
+      tasks: {
+        select: {
+          id: true,
+          title: true,
+          status: true,
+          priority: true
+        }
+      }
+    }
+  })
+}
+
+export const updateProjectRepository = async (
+  id,
+  data
+) => {
+  return prisma.project.update({
+    where: {
+      id
+    },
+
+    data
+  })
+}
+
+export const deleteProjectRepository = async (
+  id
+) => {
+  return prisma.project.delete({
+    where: {
+      id
+    }
+  })
+}
+
+export const assignMembersRepository = async (
+  projectId,
+  userIds
+) => {
+  return prisma.projectMember.createMany({
+    data: userIds.map((userId) => ({
+      projectId,
+      userId
+    })),
+
+    skipDuplicates: true
+  })
+}
