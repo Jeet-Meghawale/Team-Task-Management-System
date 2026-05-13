@@ -12,7 +12,6 @@ app.use(morgan("dev"))
 app.use(helmet())
 
 
-app.use(errorMiddleware)
 app.use("/api/v1", routes) // Prefix all routes with /api/v1
 
 app.get("/", (req, res) => {
@@ -22,4 +21,7 @@ app.get("/", (req, res) => {
   })
 })
 
+
+
+app.use(errorMiddleware)
 export default app;

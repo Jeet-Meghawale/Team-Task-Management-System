@@ -1,5 +1,3 @@
-import { ZodError } from "zod"
-
 const validate = (schema) => {
   return (req, res, next) => {
     try {
@@ -7,13 +5,6 @@ const validate = (schema) => {
 
       next()
     } catch (error) {
-      if (error instanceof ZodError) {
-        return res.status(400).json({
-          success: false,
-          message: error.issues[0].message
-        })
-      }
-
       next(error)
     }
   }
