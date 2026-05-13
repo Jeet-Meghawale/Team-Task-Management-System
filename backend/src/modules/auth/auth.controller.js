@@ -10,10 +10,6 @@ export const registerUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body
 
-        if (!name || !email || !password) {
-            throw new ApiError(400, "All fields are required")
-        }
-
         const result = await registerService(req.body)
 
         return res.status(201).json(
@@ -33,10 +29,7 @@ export const loginUser = async (req, res, next) => {
     try {
         const { email, password } = req.body
 
-        if (!email || !password) {
-            throw new ApiError(400, "Email and password are required")
-        }
-
+        
         const result = await loginService(req.body)
 
         return res.status(200).json(
