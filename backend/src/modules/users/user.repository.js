@@ -37,3 +37,78 @@ export const findUsers = async ({
         }
     })
 }
+
+export const findUserById = async (id) => {
+    return prisma.user.findUnique({
+        where: {
+            id
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isActive: true,
+            createdAt: true
+        }
+    })
+}
+
+export const createUserRepository = async (data) => {
+    return prisma.user.create({
+        data,
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isActive: true,
+            createdAt: true
+        }
+    })
+}
+
+export const updateUserRoleRepository = async (
+    id,
+    role
+) => {
+    return prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            role
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isActive: true
+        }
+    })
+
+
+}
+
+export const updateUserStatusRepository = async (
+    id,
+    isActive
+) => {
+    return prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            isActive
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isActive: true
+        }
+    })
+}
+
