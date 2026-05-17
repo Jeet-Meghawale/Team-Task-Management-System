@@ -11,10 +11,10 @@ export function DashboardView({ stats }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <DashboardStatsGrid stats={stats} />
       <CompletionOverview stats={stats} />
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-5 lg:grid-cols-2">
         <TaskStatusSummary stats={stats} />
         <TaskPrioritySummary stats={stats} />
       </div>

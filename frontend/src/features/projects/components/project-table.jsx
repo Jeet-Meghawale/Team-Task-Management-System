@@ -16,13 +16,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { TeamStatusBadge } from "@/features/teams/components/team-status-badge"
+import { ProjectStatusBadge } from "@/features/projects/components/project-status-badge"
 import { formatDisplayDate } from "@/lib/format/date"
 
-export function TeamTable({
-  teams,
+export function ProjectTable({
+  projects,
   detailRoute,
-  entityLabel = "Team",
   canManage,
   canDelete,
   onEdit,
@@ -32,8 +31,8 @@ export function TeamTable({
     <DataTableShell>
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>{entityLabel}</TableHead>
+          <TableRow className="hover:bg-transparent">
+            <TableHead>Project</TableHead>
             <TableHead className="hidden sm:table-cell">Status</TableHead>
             <TableHead className="hidden md:table-cell">Members</TableHead>
             <TableHead className="hidden lg:table-cell">Tasks</TableHead>
@@ -42,34 +41,38 @@ export function TeamTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {teams.map((team) => (
-            <TableRow key={team.id}>
+          {projects.map((project) => (
+            <TableRow key={project.id} className="group">
               <TableCell>
                 <Link
-                  to={detailRoute(team.id)}
-                  className="font-medium text-foreground hover:underline"
+                  to={detailRoute(project.id)}
+                  className="font-medium text-foreground hover:text-primary"
                 >
-                  {team.name}
+                  {project.name}
                 </Link>
-                {team.description ? (
+                {project.description ? (
                   <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
-                    {team.description}
+                    {project.description}
                   </p>
                 ) : null}
                 <div className="mt-1 flex flex-wrap items-center gap-2 sm:hidden">
-                  <TeamStatusBadge status={team.status} />
+                  <ProjectStatusBadge status={project.status} />
                   <span className="text-xs text-muted-foreground">
-                    {team.memberCount} members · {team.taskCount} tasks
+                    {project.memberCount} members · {project.taskCount} tasks
                   </span>
                 </div>
               </TableCell>
               <TableCell className="hidden sm:table-cell">
-                <TeamStatusBadge status={team.status} />
+                <ProjectStatusBadge status={project.status} />
               </TableCell>
-              <TableCell className="hidden md:table-cell">{team.memberCount}</TableCell>
-              <TableCell className="hidden lg:table-cell">{team.taskCount}</TableCell>
+              <TableCell className="hidden md:table-cell tabular-nums">
+                {project.memberCount}
+              </TableCell>
+              <TableCell className="hidden lg:table-cell tabular-nums">
+                {project.taskCount}
+              </TableCell>
               <TableCell className="hidden text-muted-foreground md:table-cell">
-                {formatDisplayDate(team.startDate)}
+                {formatDisplayDate(project.startDate)}
               </TableCell>
               <TableCell>
                 {(canManage || canDelete) && (
@@ -79,14 +82,15 @@ export function TeamTable({
                         type="button"
                         variant="ghost"
                         size="icon-sm"
-                        aria-label={`Actions for ${team.name}`}
+                        className="opacity-70 group-hover:opacity-100"
+                        aria-label={`Actions for ${project.name}`}
                       >
                         <MoreHorizontal className="size-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       {canManage ? (
-                        <DropdownMenuItem onClick={() => onEdit(team)}>
+                        <DropdownMenuItem onClick={() => onEdit(project)}>
                           <Pencil />
                           Edit
                         </DropdownMenuItem>
@@ -94,7 +98,7 @@ export function TeamTable({
                       {canDelete ? (
                         <DropdownMenuItem
                           variant="destructive"
-                          onClick={() => onDelete(team)}
+                          onClick={() => onDelete(project)}
                         >
                           <Trash2 />
                           Delete

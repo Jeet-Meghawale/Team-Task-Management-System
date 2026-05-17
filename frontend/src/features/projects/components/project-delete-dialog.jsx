@@ -9,10 +9,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
-export function TeamDeleteDialog({
+export function ProjectDeleteDialog({
   open,
   onOpenChange,
-  team,
+  project,
   onConfirm,
   isDeleting,
 }) {
@@ -20,10 +20,10 @@ export function TeamDeleteDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Delete team</DialogTitle>
+          <DialogTitle>Delete project</DialogTitle>
           <DialogDescription>
             This will permanently delete{" "}
-            <span className="font-medium text-foreground">{team?.name}</span>{" "}
+            <span className="font-medium text-foreground">{project?.name}</span>{" "}
             and related tasks. This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
@@ -48,7 +48,7 @@ export function TeamDeleteDialog({
                 Deleting...
               </>
             ) : (
-              "Delete team"
+              "Delete project"
             )}
           </Button>
         </DialogFooter>

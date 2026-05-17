@@ -1,4 +1,4 @@
-export function mapProjectToTeam(project) {
+export function normalizeProject(project) {
   if (!project) return null
 
   const members =

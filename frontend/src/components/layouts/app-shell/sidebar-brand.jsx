@@ -18,7 +18,7 @@ export function SidebarBrand({ collapsed }) {
       {!collapsed ? (
         <span className="flex min-w-0 flex-col leading-tight">
           <span className="truncate text-sm font-semibold text-sidebar-foreground">
-            Team Tasks
+            Taskboard
           </span>
           <span className="truncate text-xs text-sidebar-foreground/60">
             Workspace

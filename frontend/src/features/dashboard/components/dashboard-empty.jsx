@@ -31,7 +31,7 @@ export function DashboardEmpty() {
           </Link>
         </Button>
         <Button asChild variant="outline">
-          <Link to={ROUTES.TEAMS}>View teams</Link>
+          <Link to={ROUTES.PROJECTS}>View projects</Link>
         </Button>
       </CardContent>
     </Card>

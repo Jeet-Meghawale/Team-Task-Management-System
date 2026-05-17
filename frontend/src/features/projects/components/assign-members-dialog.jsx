@@ -12,9 +12,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { assignMembersSchema } from "@/features/teams/schemas/team-form.schema"
-import { useUsersForAssignment } from "@/features/teams/hooks/use-users-for-assignment"
-import { useDebouncedValue } from "@/features/teams/hooks/use-debounced-value"
+import { assignMembersSchema } from "@/features/projects/schemas/project-form.schema"
+import { useUsersForAssignment } from "@/features/projects/hooks/use-users-for-assignment"
+import { useDebouncedValue } from "@/lib/hooks/use-debounced-value"
 import { Skeleton } from "@/components/ui/skeleton"
 import { getApiErrorMessage } from "@/lib/api/error-message"
 import { cn } from "@/lib/utils"
@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils"
 export function AssignMembersDialog({
   open,
   onOpenChange,
-  team,
+  project,
   userRole,
   onSubmit,
   isSubmitting,
@@ -32,8 +32,8 @@ export function AssignMembersDialog({
   const usersQuery = useUsersForAssignment(userRole, debouncedSearch)
 
   const existingMemberIds = useMemo(
-    () => new Set(team?.members?.map((m) => m.id) ?? []),
-    [team?.members],
+    () => new Set(project?.members?.map((m) => m.id) ?? []),
+    [project?.members],
   )
 
   const availableUsers = useMemo(
@@ -91,7 +91,7 @@ export function AssignMembersDialog({
         <DialogHeader>
           <DialogTitle>Add members</DialogTitle>
           <DialogDescription>
-            Add users to <span className="font-medium">{team?.name}</span>.
+            Add users to <span className="font-medium">{project?.name}</span>.
           </DialogDescription>
         </DialogHeader>
 

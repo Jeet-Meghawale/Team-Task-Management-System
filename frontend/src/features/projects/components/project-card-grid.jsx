@@ -14,11 +14,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { TeamStatusBadge } from "@/features/teams/components/team-status-badge"
+import { ProjectStatusBadge } from "@/features/projects/components/project-status-badge"
 import { formatDisplayDate } from "@/lib/format/date"
 
-export function TeamCardGrid({
-  teams,
+export function ProjectCardGrid({
+  projects,
   detailRoute,
   canManage,
   canDelete,
@@ -27,20 +27,23 @@ export function TeamCardGrid({
 }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      {teams.map((team) => (
-        <Card key={team.id} className="relative">
+      {projects.map((project) => (
+        <Card
+          key={project.id}
+          className="relative border-border/60 bg-card/50 shadow-none transition-colors hover:border-border hover:bg-card"
+        >
           <CardHeader className="pb-3">
             <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 space-y-1">
+              <div className="min-w-0 space-y-1.5">
                 <CardTitle className="truncate text-base">
                   <Link
-                    to={detailRoute(team.id)}
-                    className="hover:underline"
+                    to={detailRoute(project.id)}
+                    className="hover:text-primary"
                   >
-                    {team.name}
+                    {project.name}
                   </Link>
                 </CardTitle>
-                <TeamStatusBadge status={team.status} />
+                <ProjectStatusBadge status={project.status} />
               </div>
               {(canManage || canDelete) && (
                 <DropdownMenu>
@@ -49,14 +52,14 @@ export function TeamCardGrid({
                       type="button"
                       variant="ghost"
                       size="icon-sm"
-                      aria-label={`Actions for ${team.name}`}
+                      aria-label={`Actions for ${project.name}`}
                     >
                       <MoreHorizontal className="size-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     {canManage ? (
-                      <DropdownMenuItem onClick={() => onEdit(team)}>
+                      <DropdownMenuItem onClick={() => onEdit(project)}>
                         <Pencil />
                         Edit
                       </DropdownMenuItem>
@@ -64,7 +67,7 @@ export function TeamCardGrid({
                     {canDelete ? (
                       <DropdownMenuItem
                         variant="destructive"
-                        onClick={() => onDelete(team)}
+                        onClick={() => onDelete(project)}
                       >
                         <Trash2 />
                         Delete
@@ -74,24 +77,24 @@ export function TeamCardGrid({
                 </DropdownMenu>
               )}
             </div>
-            {team.description ? (
+            {project.description ? (
               <CardDescription className="line-clamp-2">
-                {team.description}
+                {project.description}
               </CardDescription>
             ) : null}
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <div className="flex items-center gap-4">
               <span className="inline-flex items-center gap-1.5">
-                <Users className="size-3.5" />
-                {team.memberCount} members
+                <Users className="size-3.5" aria-hidden />
+                {project.memberCount} members
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <ListTodo className="size-3.5" />
-                {team.taskCount} tasks
+                <ListTodo className="size-3.5" aria-hidden />
+                {project.taskCount} tasks
               </span>
             </div>
-            <p>Starts {formatDisplayDate(team.startDate)}</p>
+            <p>Starts {formatDisplayDate(project.startDate)}</p>
           </CardContent>
         </Card>
       ))}

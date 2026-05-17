@@ -5,7 +5,6 @@ import {
   FolderKanban,
   LayoutDashboard,
   Shield,
-  Users,
 } from "lucide-react"
 import { ROUTES } from "@/lib/constants/routes"
 import { USER_ROLES } from "@/lib/auth/roles"
@@ -18,11 +17,6 @@ export const APP_NAV_ITEMS = [
     label: "Dashboard",
     href: ROUTES.DASHBOARD,
     icon: LayoutDashboard,
-  },
-  {
-    label: "Teams",
-    href: ROUTES.TEAMS,
-    icon: Users,
   },
   {
     label: "Projects",
@@ -62,18 +56,6 @@ export function filterNavItemsByRole(items, userRole) {
 export function isNavItemActive(pathname, href) {
   if (href === ROUTES.DASHBOARD) {
     return pathname === ROUTES.DASHBOARD || pathname === ROUTES.APP_ROOT
-  }
-  if (href === ROUTES.TEAMS) {
-    return (
-      pathname === ROUTES.TEAMS ||
-      (pathname.startsWith(`${ROUTES.TEAMS}/`) &&
-        !pathname.startsWith(ROUTES.PROJECTS))
-    )
-  }
-  if (href === ROUTES.PROJECTS) {
-    return (
-      pathname === ROUTES.PROJECTS || pathname.startsWith(`${ROUTES.PROJECTS}/`)
-    )
   }
   return pathname === href || pathname.startsWith(`${href}/`)
 }

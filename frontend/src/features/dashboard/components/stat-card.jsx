@@ -10,8 +10,8 @@ export function StatCard({
   trend,
 }) {
   return (
-    <Card className="gap-0 py-0">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 px-4 pt-4 pb-2">
+    <Card className="gap-0 border-border/50 bg-card/50 py-0 shadow-none">
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 px-5 pt-5 pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
         </CardTitle>
@@ -26,7 +26,7 @@ export function StatCard({
           </span>
         ) : null}
       </CardHeader>
-      <CardContent className="px-4 pb-4">
+      <CardContent className="px-5 pb-5">
         <p className="text-3xl font-semibold tracking-tight text-foreground tabular-nums">
           {value}
         </p>

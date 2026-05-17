@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { TEAM_STATUSES } from "@/features/teams/lib/team-status"
+import { PROJECT_STATUSES } from "@/features/projects/lib/project-status"
 
-const statusValues = Object.values(TEAM_STATUSES)
+const statusValues = Object.values(PROJECT_STATUSES)
 
-export const teamFormSchema = z
+export const projectFormSchema = z
   .object({
     name: z.string().min(3, "Name must be at least 3 characters"),
     description: z.string().optional(),

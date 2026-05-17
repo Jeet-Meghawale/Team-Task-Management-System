@@ -17,15 +17,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { AssignMembersDialog } from "@/features/teams/components/assign-members-dialog"
-import { formatDisplayDate } from "@/features/teams/lib/normalize-team"
+import { AssignMembersDialog } from "@/features/projects/components/assign-members-dialog"
+import { formatDisplayDate } from "@/features/projects/lib/normalize-project"
 import {
   canAssignMembers,
   canBrowseUsersForAssignment,
-} from "@/features/teams/lib/team-permissions"
+} from "@/features/projects/lib/project-permissions"
 
-export function TeamMembersSection({
-  team,
+export function ProjectMembersSection({
+  project,
   userRole,
   onAssignMembers,
   isAssigning,
@@ -35,13 +35,13 @@ export function TeamMembersSection({
 
   return (
     <>
-      <Card>
+      <Card className="border-border/60 bg-card/50 shadow-none">
         <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0">
           <div>
-            <CardTitle>Team members</CardTitle>
+            <CardTitle>Project members</CardTitle>
             <CardDescription>
-              {team.members.length} member{team.members.length === 1 ? "" : "s"}{" "}
-              assigned to this team.
+              {project.members.length} member{project.members.length === 1 ? "" : "s"}{" "}
+              assigned to this project.
             </CardDescription>
           </div>
           {showAssign ? (
@@ -52,12 +52,12 @@ export function TeamMembersSection({
           ) : null}
         </CardHeader>
         <CardContent>
-          {team.members.length === 0 ? (
+          {project.members.length === 0 ? (
             <div className="rounded-lg border border-dashed border-border bg-muted/20 px-4 py-10 text-center">
               <p className="text-sm font-medium text-foreground">No members yet</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {showAssign
-                  ? "Add teammates to collaborate on this team's work."
+                  ? "Add teammates to collaborate on this project's work."
                   : "Members will appear here once assigned by an admin or manager."}
               </p>
             </div>
@@ -73,7 +73,7 @@ export function TeamMembersSection({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {team.members.map((member) => (
+                  {project.members.map((member) => (
                     <TableRow key={member.id}>
                       <TableCell className="font-medium">{member.name}</TableCell>
                       <TableCell className="text-muted-foreground">
@@ -103,7 +103,7 @@ export function TeamMembersSection({
         <AssignMembersDialog
           open={assignOpen}
           onOpenChange={setAssignOpen}
-          team={team}
+          project={project}
           userRole={userRole}
           onSubmit={(userIds) => onAssignMembers(userIds)}
           isSubmitting={isAssigning}

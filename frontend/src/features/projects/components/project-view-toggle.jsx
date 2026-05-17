@@ -6,7 +6,7 @@ const OPTIONS = [
   { value: "grid", label: "Grid", icon: LayoutGrid },
 ]
 
-export function TeamViewToggle({ view, onViewChange }) {
+export function ProjectViewToggle({ view, onViewChange }) {
   return (
     <ViewToggle value={view} onChange={onViewChange} options={OPTIONS} />
   )

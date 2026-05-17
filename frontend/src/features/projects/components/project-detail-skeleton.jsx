@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
-export function TeamDetailSkeleton() {
+export function ProjectDetailSkeleton() {
   return (
     <div className="space-y-6">
       <Skeleton className="h-8 w-48" />

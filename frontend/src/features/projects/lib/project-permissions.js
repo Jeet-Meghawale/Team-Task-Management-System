@@ -1,10 +1,10 @@
 import { USER_ROLES } from "@/lib/auth/roles"
 
-export function canManageTeams(role) {
+export function canManageProjects(role) {
   return role === USER_ROLES.ADMIN || role === USER_ROLES.MANAGER
 }
 
-export function canDeleteTeam(role) {
+export function canDeleteProject(role) {
   return role === USER_ROLES.ADMIN
 }
 

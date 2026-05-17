@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { fetchUsers } from "@/services/users.service"
 import { queryKeys } from "@/lib/react-query/query-keys"
-import { canBrowseUsersForAssignment } from "@/features/teams/lib/team-permissions"
+import { canBrowseUsersForAssignment } from "@/features/projects/lib/project-permissions"
 
 export function useUsersForAssignment(userRole, search = "") {
   return useQuery({

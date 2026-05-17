@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
-export function TeamListSkeleton({ view = "table" }) {
+export function ProjectListSkeleton({ view = "table" }) {
   if (view === "grid") {
     return (
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

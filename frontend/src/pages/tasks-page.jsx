@@ -6,7 +6,7 @@ import { ErrorDisplay } from "@/components/feedback/error-display"
 import { PageHeader } from "@/components/shared/page-header"
 import { ListPagination } from "@/components/shared/list-pagination"
 import { useAuth } from "@/lib/auth/use-auth"
-import { useDebouncedValue } from "@/features/teams/hooks/use-debounced-value"
+import { useDebouncedValue } from "@/lib/hooks/use-debounced-value"
 import { TASK_PRIORITY_FILTER_ALL } from "@/lib/constants/task-priority"
 import { TASK_STATUS_FILTER_ALL } from "@/lib/constants/task-status"
 import {

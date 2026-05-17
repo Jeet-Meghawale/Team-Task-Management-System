@@ -20,9 +20,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { teamFormSchema } from "@/features/teams/schemas/team-form.schema"
-import { TEAM_STATUS_OPTIONS, TEAM_STATUSES } from "@/features/teams/lib/team-status"
-import { toDateInputValue } from "@/features/teams/lib/normalize-team"
+import { projectFormSchema } from "@/features/projects/schemas/project-form.schema"
+import { PROJECT_STATUS_OPTIONS, PROJECT_STATUSES } from "@/features/projects/lib/project-status"
+import { toDateInputValue } from "@/features/projects/lib/normalize-project"
 import { getApiErrorMessage } from "@/lib/api/error-message"
 import { cn } from "@/lib/utils"
 
@@ -31,37 +31,37 @@ const selectClassName = cn(
   "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none",
 )
 
-export function TeamFormDialog({
+export function ProjectFormDialog({
   open,
   onOpenChange,
   mode = "create",
-  team,
+  project,
   onSubmit,
   isSubmitting,
 }) {
   const isEdit = mode === "edit"
 
   const form = useForm({
-    resolver: zodResolver(teamFormSchema),
+    resolver: zodResolver(projectFormSchema),
     defaultValues: {
       name: "",
       description: "",
       startDate: "",
       endDate: "",
-      status: TEAM_STATUSES.PLANNED,
+      status: PROJECT_STATUSES.PLANNED,
     },
   })
 
   useEffect(() => {
     if (!open) return
 
-    if (isEdit && team) {
+    if (isEdit && project) {
       form.reset({
-        name: team.name,
-        description: team.description ?? "",
-        startDate: toDateInputValue(team.startDate),
-        endDate: toDateInputValue(team.endDate),
-        status: team.status,
+        name: project.name,
+        description: project.description ?? "",
+        startDate: toDateInputValue(project.startDate),
+        endDate: toDateInputValue(project.endDate),
+        status: project.status,
       })
       return
     }
@@ -71,9 +71,9 @@ export function TeamFormDialog({
       description: "",
       startDate: "",
       endDate: "",
-      status: TEAM_STATUSES.PLANNED,
+      status: PROJECT_STATUSES.PLANNED,
     })
-  }, [open, isEdit, team, form])
+  }, [open, isEdit, project, form])
 
   async function handleSubmit(values) {
     form.clearErrors("root")
@@ -101,11 +101,11 @@ export function TeamFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit team" : "Create team"}</DialogTitle>
+          <DialogTitle>{isEdit ? "Edit project" : "Create project"}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Update team details and workflow status."
-              : "Set up a new team workspace for members and tasks."}
+              ? "Update project details and workflow status."
+              : "Set up a new project workspace for members and tasks."}
           </DialogDescription>
         </DialogHeader>
 
@@ -119,7 +119,7 @@ export function TeamFormDialog({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Team name</FormLabel>
+                  <FormLabel>Project name</FormLabel>
                   <FormControl>
                     <Input placeholder="Platform squad" disabled={isSubmitting} {...field} />
                   </FormControl>
@@ -138,7 +138,7 @@ export function TeamFormDialog({
                     <textarea
                       rows={3}
                       disabled={isSubmitting}
-                      placeholder="What does this team own?"
+                      placeholder="What does this project own?"
                       className={cn(
                         "flex min-h-20 w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-sm",
                         "placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none",
@@ -195,7 +195,7 @@ export function TeamFormDialog({
                       onBlur={field.onBlur}
                       name={field.name}
                     >
-                      {TEAM_STATUS_OPTIONS.map((option) => (
+                      {PROJECT_STATUS_OPTIONS.map((option) => (
                         <option key={option.value} value={option.value}>
                           {option.label}
                         </option>
@@ -231,7 +231,7 @@ export function TeamFormDialog({
                 ) : isEdit ? (
                   "Save changes"
                 ) : (
-                  "Create team"
+                  "Create project"
                 )}
               </Button>
             </DialogFooter>

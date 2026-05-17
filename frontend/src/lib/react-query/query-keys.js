@@ -8,11 +8,6 @@ export const queryKeys = {
   dashboard: {
     stats: [ENDPOINTS.DASHBOARD, "stats"],
   },
-  teams: {
-    all: ["teams"],
-    list: (filters) => ["teams", "list", filters],
-    detail: (id) => ["teams", "detail", id],
-  },
   projects: {
     all: ["projects"],
     list: (filters) => ["projects", "list", filters],

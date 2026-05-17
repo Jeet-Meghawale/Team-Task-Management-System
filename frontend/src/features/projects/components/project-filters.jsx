@@ -1,12 +1,12 @@
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import {
-  TEAM_STATUS_FILTER_ALL,
-  TEAM_STATUS_OPTIONS,
-} from "@/features/teams/lib/team-status"
-import { cn } from "@/lib/utils"
+  PROJECT_STATUS_FILTER_ALL,
+  PROJECT_STATUS_OPTIONS,
+} from "@/features/projects/lib/project-status"
+import { NativeSelect } from "@/components/ui/native-select"
 
-export function TeamFilters({
+export function ProjectFilters({
   search,
   onSearchChange,
   status,
@@ -19,26 +19,23 @@ export function TeamFilters({
         <Input
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search teams by name..."
+          placeholder="Search projects by name..."
           className="pl-8"
         />
       </div>
-      <select
+      <NativeSelect
         value={status}
         onChange={(e) => onStatusChange(e.target.value)}
-        className={cn(
-          "h-8 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm sm:w-44",
-          "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none",
-        )}
+        className="sm:w-44"
         aria-label="Filter by status"
       >
-        <option value={TEAM_STATUS_FILTER_ALL}>All statuses</option>
-        {TEAM_STATUS_OPTIONS.map((option) => (
+        <option value={PROJECT_STATUS_FILTER_ALL}>All statuses</option>
+        {PROJECT_STATUS_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
-      </select>
+      </NativeSelect>
     </div>
   )
 }

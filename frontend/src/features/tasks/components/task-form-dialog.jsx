@@ -33,7 +33,7 @@ import {
 import { toDateInputValue } from "@/lib/format/date"
 import { nativeSelectClassName } from "@/lib/ui/select-class"
 import { getApiErrorMessage } from "@/lib/api/error-message"
-import { fetchTeamById, fetchTeams } from "@/services/team.service"
+import { fetchProjectById, fetchProjects } from "@/services/project.service"
 import { fetchUsers } from "@/services/users.service"
 import { USER_ROLES } from "@/lib/auth/roles"
 import { useAuth } from "@/lib/auth/use-auth"
@@ -68,7 +68,7 @@ export function TaskFormDialog({
 
   const projectsQuery = useQuery({
     queryKey: ["task-form", "projects"],
-    queryFn: () => fetchTeams({ page: 1, limit: 100 }),
+    queryFn: () => fetchProjects({ page: 1, limit: 100 }),
     enabled: open,
   })
 
@@ -80,7 +80,7 @@ export function TaskFormDialog({
 
   const projectMembersQuery = useQuery({
     queryKey: ["task-form", "project-members", projectId],
-    queryFn: () => fetchTeamById(projectId),
+    queryFn: () => fetchProjectById(projectId),
     enabled: open && Boolean(projectId) && !isAdmin,
   })
 
