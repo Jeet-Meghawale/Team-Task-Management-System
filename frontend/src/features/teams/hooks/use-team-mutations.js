@@ -8,9 +8,13 @@ import {
   updateTeam,
 } from "@/services/team.service"
 import { queryKeys } from "@/lib/react-query/query-keys"
-import { ROUTES } from "@/lib/constants/routes"
 import { getApiErrorMessage } from "@/lib/api/error-message"
-export function useTeamMutations() {
+import {
+  getTeamDetailRoute,
+  getTeamListRoute,
+} from "@/features/teams/lib/team-routes"
+
+export function useTeamMutations({ variant = "teams" } = {}) {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
@@ -23,7 +27,7 @@ export function useTeamMutations() {
     onSuccess: (team) => {
       toast.success("Team created successfully")
       invalidateTeams()
-      navigate(ROUTES.TEAM_DETAIL(team.id))
+      navigate(getTeamDetailRoute(variant, team.id))
     },
   })
 
@@ -41,7 +45,7 @@ export function useTeamMutations() {
     onSuccess: () => {
       toast.success("Team deleted successfully")
       invalidateTeams()
-      navigate(ROUTES.TEAMS)
+      navigate(getTeamListRoute(variant))
     },
     onError: (error) => {
       toast.error(getApiErrorMessage(error, "Failed to delete team"))

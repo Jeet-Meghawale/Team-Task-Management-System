@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { DataTableShell } from "@/components/shared/data-table-shell"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,26 +17,27 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { TeamStatusBadge } from "@/features/teams/components/team-status-badge"
-import { formatDisplayDate } from "@/features/teams/lib/normalize-team"
-import { ROUTES } from "@/lib/constants/routes"
+import { formatDisplayDate } from "@/lib/format/date"
 
 export function TeamTable({
   teams,
+  detailRoute,
+  entityLabel = "Team",
   canManage,
   canDelete,
   onEdit,
   onDelete,
 }) {
   return (
-    <div className="rounded-xl border border-border">
+    <DataTableShell>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Team</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Members</TableHead>
-            <TableHead>Tasks</TableHead>
-            <TableHead>Start</TableHead>
+            <TableHead>{entityLabel}</TableHead>
+            <TableHead className="hidden sm:table-cell">Status</TableHead>
+            <TableHead className="hidden md:table-cell">Members</TableHead>
+            <TableHead className="hidden lg:table-cell">Tasks</TableHead>
+            <TableHead className="hidden md:table-cell">Start</TableHead>
             <TableHead className="w-12" />
           </TableRow>
         </TableHeader>
@@ -44,7 +46,7 @@ export function TeamTable({
             <TableRow key={team.id}>
               <TableCell>
                 <Link
-                  to={ROUTES.TEAM_DETAIL(team.id)}
+                  to={detailRoute(team.id)}
                   className="font-medium text-foreground hover:underline"
                 >
                   {team.name}
@@ -54,13 +56,19 @@ export function TeamTable({
                     {team.description}
                   </p>
                 ) : null}
+                <div className="mt-1 flex flex-wrap items-center gap-2 sm:hidden">
+                  <TeamStatusBadge status={team.status} />
+                  <span className="text-xs text-muted-foreground">
+                    {team.memberCount} members · {team.taskCount} tasks
+                  </span>
+                </div>
               </TableCell>
-              <TableCell>
+              <TableCell className="hidden sm:table-cell">
                 <TeamStatusBadge status={team.status} />
               </TableCell>
-              <TableCell>{team.memberCount}</TableCell>
-              <TableCell>{team.taskCount}</TableCell>
-              <TableCell className="text-muted-foreground">
+              <TableCell className="hidden md:table-cell">{team.memberCount}</TableCell>
+              <TableCell className="hidden lg:table-cell">{team.taskCount}</TableCell>
+              <TableCell className="hidden text-muted-foreground md:table-cell">
                 {formatDisplayDate(team.startDate)}
               </TableCell>
               <TableCell>
@@ -100,6 +108,6 @@ export function TeamTable({
           ))}
         </TableBody>
       </Table>
-    </div>
+    </DataTableShell>
   )
 }

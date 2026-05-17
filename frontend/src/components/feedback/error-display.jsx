@@ -12,8 +12,9 @@ export function ErrorDisplay({
 
   return (
     <div
+      role="alert"
       className={cn(
-        "flex min-h-[40vh] flex-col items-center justify-center gap-4 px-4 text-center",
+        "flex min-h-[40vh] flex-col items-center justify-center gap-4 rounded-xl border border-destructive/20 bg-destructive/5 px-4 py-8 text-center",
         className,
       )}
     >
@@ -22,7 +23,7 @@ export function ErrorDisplay({
         <p className="text-sm text-muted-foreground">{message}</p>
       </div>
       {onRetry ? (
-        <Button type="button" onClick={onRetry}>
+        <Button type="button" variant="outline" onClick={onRetry}>
           Try again
         </Button>
       ) : null}

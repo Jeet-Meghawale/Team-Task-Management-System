@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Search } from "lucide-react"
+import { Search, Users } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { ErrorDisplay } from "@/components/feedback/error-display"
+import { EmptyStateCard } from "@/components/shared/empty-state-card"
+import { PageHeader } from "@/components/shared/page-header"
 import { ListPagination } from "@/components/shared/list-pagination"
-import { Skeleton } from "@/components/ui/skeleton"
+import { TableSkeleton } from "@/components/shared/table-skeleton"
 import { ROUTES } from "@/lib/constants/routes"
 import { useDebouncedValue } from "@/features/teams/hooks/use-debounced-value"
 import { useUsers } from "@/features/users/hooks/use-users"
@@ -31,45 +33,47 @@ export function AdminAreaPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">User management</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Manage roles and account status for workspace members.
-          </p>
-          <Link
-            to={ROUTES.REGISTER}
-            className="mt-2 inline-block text-sm font-medium text-primary hover:underline"
-          >
-            Create new user
-          </Link>
-        </div>
-        <div className="relative w-full sm:max-w-xs">
-          <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value)
-              setPage(1)
-            }}
-            placeholder="Search users..."
-            className="pl-8"
-          />
-        </div>
-      </div>
+      <PageHeader
+        title="User management"
+        description="Manage roles and account status for workspace members."
+        hideTitle
+        actions={
+          <div className="relative w-full sm:max-w-xs">
+            <Search
+              className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden
+            />
+            <Input
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value)
+                setPage(1)
+              }}
+              placeholder="Search users..."
+              className="pl-8"
+              aria-label="Search users"
+            />
+          </div>
+        }
+      />
+
+      <Link
+        to={ROUTES.REGISTER}
+        className="inline-block text-sm font-medium text-primary hover:underline"
+      >
+        Create new user
+      </Link>
 
       {usersQuery.isLoading ? (
-        <div className="space-y-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-12 w-full" />
-          ))}
-        </div>
+        <TableSkeleton rows={6} columns={5} />
       ) : usersQuery.isError ? (
         <ErrorDisplay error={usersQuery.error} onRetry={() => usersQuery.refetch()} />
       ) : users.length === 0 ? (
-        <p className="rounded-lg border border-dashed border-border py-12 text-center text-sm text-muted-foreground">
-          No users match your search.
-        </p>
+        <EmptyStateCard
+          icon={Users}
+          title="No users found"
+          description="Try a different search term or create a new user account."
+        />
       ) : (
         <>
           <UsersTable

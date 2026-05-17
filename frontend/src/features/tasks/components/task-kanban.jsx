@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TASK_STATUS_LABELS, TASK_STATUS_ORDER } from "@/lib/constants/task-status"
 import { TaskPriorityBadge } from "@/features/tasks/components/task-priority-badge"
 import { TaskDueDate } from "@/features/tasks/components/task-due-date"
-import { nativeSelectClassName } from "@/lib/ui/select-class"
+import { NativeSelect } from "@/components/ui/native-select"
 import { cn } from "@/lib/utils"
 import { canUpdateTaskStatus } from "@/features/tasks/lib/task-permissions"
 
@@ -21,11 +21,15 @@ export function TaskKanban({ tasks, user, onOpen, onStatusChange }) {
   }))
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="-mx-1 overflow-x-auto pb-2">
+      <div className="flex min-w-max gap-4 md:grid md:min-w-0 md:grid-cols-2 xl:grid-cols-4">
       {columns.map((column) => (
         <Card
           key={column.status}
-          className={cn("gap-0 border-t-4 py-0", COLUMN_STYLES[column.status])}
+          className={cn(
+            "w-[min(100%,18rem)] shrink-0 gap-0 border-t-4 py-0 md:w-auto",
+            COLUMN_STYLES[column.status],
+          )}
         >
           <CardHeader className="border-b border-border px-4 py-3">
             <CardTitle className="flex items-center justify-between text-sm">
@@ -62,8 +66,8 @@ export function TaskKanban({ tasks, user, onOpen, onStatusChange }) {
                     />
                   </div>
                   {canUpdateTaskStatus(task, user) ? (
-                    <select
-                      className={cn(nativeSelectClassName, "mt-3 h-7 text-xs")}
+                    <NativeSelect
+                      className="mt-3 h-7 text-xs"
                       value={task.status}
                       onClick={(e) => e.stopPropagation()}
                       onChange={(e) => {
@@ -77,7 +81,7 @@ export function TaskKanban({ tasks, user, onOpen, onStatusChange }) {
                           {TASK_STATUS_LABELS[status]}
                         </option>
                       ))}
-                    </select>
+                    </NativeSelect>
                   ) : null}
                 </button>
               ))
@@ -85,6 +89,7 @@ export function TaskKanban({ tasks, user, onOpen, onStatusChange }) {
           </CardContent>
         </Card>
       ))}
+      </div>
     </div>
   )
 }

@@ -2,12 +2,15 @@ import { useState } from "react"
 import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ErrorDisplay } from "@/components/feedback/error-display"
+import { PageHeader } from "@/components/shared/page-header"
+import { ListPagination } from "@/components/shared/list-pagination"
 import { useAuth } from "@/lib/auth/use-auth"
 import { TEAM_STATUS_FILTER_ALL } from "@/features/teams/lib/team-status"
 import {
   canDeleteTeam,
   canManageTeams,
 } from "@/features/teams/lib/team-permissions"
+import { getTeamDetailRoute } from "@/features/teams/lib/team-routes"
 import { useDebouncedValue } from "@/features/teams/hooks/use-debounced-value"
 import { useTeams } from "@/features/teams/hooks/use-teams"
 import { useTeamMutations } from "@/features/teams/hooks/use-team-mutations"
@@ -17,7 +20,6 @@ import { TeamTable } from "@/features/teams/components/team-table"
 import { TeamCardGrid } from "@/features/teams/components/team-card-grid"
 import { TeamListSkeleton } from "@/features/teams/components/team-list-skeleton"
 import { TeamEmptyState } from "@/features/teams/components/team-empty-state"
-import { TeamPagination } from "@/features/teams/components/team-pagination"
 import { TeamFormDialog } from "@/features/teams/components/team-form-dialog"
 import { TeamDeleteDialog } from "@/features/teams/components/team-delete-dialog"
 
@@ -28,16 +30,19 @@ const COPY = {
     title: "Teams",
     subtitle: "Manage project teams, members, and delivery status.",
     create: "Create team",
+    entityLabel: "Team",
   },
   projects: {
     title: "Projects",
     subtitle: "Plan projects, timelines, and team assignments.",
     create: "Create project",
+    entityLabel: "Project",
   },
 }
 
 export function TeamsPage({ variant = "teams" }) {
   const copy = COPY[variant] ?? COPY.teams
+  const detailRoute = (id) => getTeamDetailRoute(variant, id)
   const { user } = useAuth()
   const role = user?.role
 
@@ -59,7 +64,9 @@ export function TeamsPage({ variant = "teams" }) {
     status,
   })
 
-  const { createMutation, updateMutation, deleteMutation } = useTeamMutations()
+  const { createMutation, updateMutation, deleteMutation } = useTeamMutations({
+    variant,
+  })
 
   const teams = teamsQuery.data ?? []
   const canManage = canManageTeams(role)
@@ -79,23 +86,22 @@ export function TeamsPage({ variant = "teams" }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            {copy.title}
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">{copy.subtitle}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <TeamViewToggle view={view} onViewChange={setView} />
-          {canManage ? (
-            <Button type="button" onClick={() => setCreateOpen(true)}>
-              <Plus className="size-4" />
-              {copy.create}
-            </Button>
-          ) : null}
-        </div>
-      </div>
+      <PageHeader
+        title={copy.title}
+        description={copy.subtitle}
+        hideTitle
+        actions={
+          <>
+            <TeamViewToggle view={view} onViewChange={setView} />
+            {canManage ? (
+              <Button type="button" onClick={() => setCreateOpen(true)}>
+                <Plus className="size-4" aria-hidden />
+                {copy.create}
+              </Button>
+            ) : null}
+          </>
+        }
+      />
 
       <TeamFilters
         search={search}
@@ -113,6 +119,7 @@ export function TeamsPage({ variant = "teams" }) {
         />
       ) : teams.length === 0 ? (
         <TeamEmptyState
+          variant={variant}
           canCreate={canManage}
           onCreate={() => setCreateOpen(true)}
         />
@@ -121,6 +128,8 @@ export function TeamsPage({ variant = "teams" }) {
           {view === "table" ? (
             <TeamTable
               teams={teams}
+              detailRoute={detailRoute}
+              entityLabel={copy.entityLabel}
               canManage={canManage}
               canDelete={canDelete}
               onEdit={setEditTeam}
@@ -129,6 +138,7 @@ export function TeamsPage({ variant = "teams" }) {
           ) : (
             <TeamCardGrid
               teams={teams}
+              detailRoute={detailRoute}
               canManage={canManage}
               canDelete={canDelete}
               onEdit={setEditTeam}
@@ -137,7 +147,7 @@ export function TeamsPage({ variant = "teams" }) {
           )}
 
           {!isFiltered ? (
-            <TeamPagination
+            <ListPagination
               page={page}
               onPageChange={setPage}
               hasNextPage={hasNextPage}

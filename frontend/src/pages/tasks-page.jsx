@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom"
 import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ErrorDisplay } from "@/components/feedback/error-display"
+import { PageHeader } from "@/components/shared/page-header"
 import { ListPagination } from "@/components/shared/list-pagination"
 import { useAuth } from "@/lib/auth/use-auth"
 import { useDebouncedValue } from "@/features/teams/hooks/use-debounced-value"
@@ -25,6 +26,7 @@ import { TaskDeleteDialog } from "@/features/tasks/components/task-delete-dialog
 import { TaskDetailSheet } from "@/features/tasks/components/task-detail-sheet"
 
 const PAGE_LIMIT = 10
+const BOARD_LIMIT = 50
 
 export function TasksPage() {
   const { user } = useAuth()
@@ -42,10 +44,11 @@ export function TasksPage() {
   const [deleteTarget, setDeleteTarget] = useState(null)
 
   const debouncedSearch = useDebouncedValue(search)
+  const pageLimit = view === "board" ? BOARD_LIMIT : PAGE_LIMIT
 
   const tasksQuery = useTasks({
     page,
-    limit: PAGE_LIMIT,
+    limit: pageLimit,
     search: debouncedSearch,
     status,
     priority,
@@ -58,7 +61,7 @@ export function TasksPage() {
   const tasks = tasksQuery.data ?? []
   const canManage = canManageTasks(user?.role)
   const canDelete = canDeleteTask(user?.role)
-  const hasNextPage = tasks.length >= PAGE_LIMIT
+  const hasNextPage = tasks.length >= pageLimit
 
   const detailTaskId = searchParams.get("task")
 
@@ -75,25 +78,29 @@ export function TasksPage() {
     statusMutation.mutate({ id: task.id, status: nextStatus })
   }
 
+  function handleViewChange(nextView) {
+    setView(nextView)
+    setPage(1)
+  }
+
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Tasks</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Manage work across projects in table or kanban view.
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <TaskViewToggle view={view} onViewChange={setView} />
-          {canManage ? (
-            <Button type="button" onClick={() => setCreateOpen(true)}>
-              <Plus className="size-4" />
-              Create task
-            </Button>
-          ) : null}
-        </div>
-      </div>
+      <PageHeader
+        title="Tasks"
+        description="Manage work across projects in table or kanban view."
+        hideTitle
+        actions={
+          <>
+            <TaskViewToggle view={view} onViewChange={handleViewChange} />
+            {canManage ? (
+              <Button type="button" onClick={() => setCreateOpen(true)}>
+                <Plus className="size-4" aria-hidden />
+                Create task
+              </Button>
+            ) : null}
+          </>
+        }
+      />
 
       <TaskFilters
         search={search}
@@ -112,7 +119,10 @@ export function TasksPage() {
           setPage(1)
         }}
         sort={sort}
-        onSortChange={setSort}
+        onSortChange={(v) => {
+          setSort(v)
+          setPage(1)
+        }}
       />
 
       {tasksQuery.isLoading ? (
@@ -139,12 +149,20 @@ export function TasksPage() {
           />
         </>
       ) : (
-        <TaskKanban
-          tasks={tasks}
-          user={user}
-          onOpen={openTask}
-          onStatusChange={handleStatusChange}
-        />
+        <>
+          <TaskKanban
+            tasks={tasks}
+            user={user}
+            onOpen={openTask}
+            onStatusChange={handleStatusChange}
+          />
+          <ListPagination
+            page={page}
+            onPageChange={setPage}
+            hasNextPage={hasNextPage}
+            isLoading={tasksQuery.isFetching}
+          />
+        </>
       )}
 
       <TaskFormDialog

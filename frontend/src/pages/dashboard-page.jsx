@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth/use-auth"
 import { queryKeys } from "@/lib/react-query/query-keys"
 import { fetchDashboardStats } from "@/services/dashboard.service"
 import { normalizeDashboardStats } from "@/features/dashboard/lib/dashboard-stats"
+import { PageHeader } from "@/components/shared/page-header"
 import { DashboardSkeleton } from "@/features/dashboard/components/dashboard-skeleton"
 import { DashboardView } from "@/features/dashboard/components/dashboard-view"
 
@@ -22,14 +23,11 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <header className="space-y-1">
-        <p className="text-sm text-muted-foreground">
-          Welcome back, {user?.name}
-        </p>
-        <p className="max-w-2xl text-sm text-muted-foreground">
-          Overview of projects, tasks, and team workload across your workspace.
-        </p>
-      </header>
+      <PageHeader
+        title="Dashboard"
+        hideTitle
+        description={`Welcome back, ${user?.name ?? "there"}. Overview of projects, tasks, and team workload across your workspace.`}
+      />
 
       <QueryState
         isLoading={statsQuery.isLoading}

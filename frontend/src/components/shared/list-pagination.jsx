@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export function ListPagination({
   page,
@@ -7,11 +8,18 @@ export function ListPagination({
   hasNextPage,
   isLoading,
   label = "Page",
+  className,
 }) {
   const hasPreviousPage = page > 1
 
   return (
-    <div className="flex items-center justify-between gap-4 border-t border-border pt-4">
+    <nav
+      aria-label="Pagination"
+      className={cn(
+        "flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between",
+        className,
+      )}
+    >
       <p className="text-sm text-muted-foreground">
         {label} {page}
       </p>
@@ -22,9 +30,10 @@ export function ListPagination({
           size="sm"
           disabled={!hasPreviousPage || isLoading}
           onClick={() => onPageChange(page - 1)}
+          aria-label="Previous page"
         >
-          <ChevronLeft className="size-4" />
-          Previous
+          <ChevronLeft className="size-4" aria-hidden />
+          <span className="hidden xs:inline sm:inline">Previous</span>
         </Button>
         <Button
           type="button"
@@ -32,11 +41,12 @@ export function ListPagination({
           size="sm"
           disabled={!hasNextPage || isLoading}
           onClick={() => onPageChange(page + 1)}
+          aria-label="Next page"
         >
-          Next
-          <ChevronRight className="size-4" />
+          <span className="hidden xs:inline sm:inline">Next</span>
+          <ChevronRight className="size-4" aria-hidden />
         </Button>
       </div>
-    </div>
+    </nav>
   )
 }

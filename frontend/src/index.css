@@ -128,3 +128,9 @@
     @apply font-sans;
     }
 }
+
+@layer utilities {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}

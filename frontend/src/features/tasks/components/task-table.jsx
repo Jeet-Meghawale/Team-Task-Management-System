@@ -1,5 +1,6 @@
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { DataTableShell } from "@/components/shared/data-table-shell"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,17 +28,19 @@ export function TaskTable({
   onDelete,
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-border">
+    <DataTableShell>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Task</TableHead>
-            <TableHead>Project</TableHead>
-            <TableHead>Assignee</TableHead>
+            <TableHead className="hidden md:table-cell">Project</TableHead>
+            <TableHead className="hidden lg:table-cell">Assignee</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Priority</TableHead>
-            <TableHead>Due</TableHead>
-            <TableHead className="w-12" />
+            <TableHead className="hidden sm:table-cell">Priority</TableHead>
+            <TableHead className="hidden md:table-cell">Due</TableHead>
+            <TableHead className="w-12">
+              <span className="sr-only">Actions</span>
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -46,30 +49,52 @@ export function TaskTable({
               key={task.id}
               className="cursor-pointer"
               onClick={() => onOpen(task)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  onOpen(task)
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`Open task ${task.title}`}
             >
               <TableCell className="max-w-[220px] font-medium">
                 <span className="line-clamp-1">{task.title}</span>
+                <div className="mt-1 flex flex-wrap items-center gap-2 sm:hidden">
+                  <TaskStatusBadge status={task.status} />
+                  <TaskPriorityBadge priority={task.priority} />
+                </div>
+                <p className="mt-0.5 text-xs text-muted-foreground sm:hidden">
+                  {task.projectName || "—"}
+                  {task.assignedTo?.name ? ` · ${task.assignedTo.name}` : ""}
+                </p>
               </TableCell>
-              <TableCell className="text-muted-foreground">
+              <TableCell className="hidden text-muted-foreground md:table-cell">
                 {task.projectName || "—"}
               </TableCell>
-              <TableCell className="text-muted-foreground">
+              <TableCell className="hidden text-muted-foreground lg:table-cell">
                 {task.assignedTo?.name ?? "—"}
               </TableCell>
-              <TableCell>
+              <TableCell className="hidden sm:table-cell">
                 <TaskStatusBadge status={task.status} />
               </TableCell>
-              <TableCell>
+              <TableCell className="hidden sm:table-cell">
                 <TaskPriorityBadge priority={task.priority} />
               </TableCell>
-              <TableCell>
+              <TableCell className="hidden md:table-cell">
                 <TaskDueDate dueDate={task.dueDate} isOverdue={task.isOverdue} />
               </TableCell>
               <TableCell onClick={(e) => e.stopPropagation()}>
                 {(canManage || canDelete) && (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button type="button" variant="ghost" size="icon-sm">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        aria-label={`Actions for ${task.title}`}
+                      >
                         <MoreHorizontal className="size-4" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -97,6 +122,6 @@ export function TaskTable({
           ))}
         </TableBody>
       </Table>
-    </div>
+    </DataTableShell>
   )
 }

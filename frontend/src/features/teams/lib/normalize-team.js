@@ -27,18 +27,4 @@ export function mapProjectToTeam(project) {
   }
 }
 
-export function toDateInputValue(value) {
-  if (!value) return ""
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return ""
-  return date.toISOString().slice(0, 10)
-}
-
-export function formatDisplayDate(value) {
-  if (!value) return "—"
-  return new Intl.DateTimeFormat(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }).format(new Date(value))
-}
+export { formatDisplayDate, toDateInputValue } from "@/lib/format/date"

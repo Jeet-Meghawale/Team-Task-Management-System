@@ -15,11 +15,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { TeamStatusBadge } from "@/features/teams/components/team-status-badge"
-import { formatDisplayDate } from "@/features/teams/lib/normalize-team"
-import { ROUTES } from "@/lib/constants/routes"
+import { formatDisplayDate } from "@/lib/format/date"
 
 export function TeamCardGrid({
   teams,
+  detailRoute,
   canManage,
   canDelete,
   onEdit,
@@ -34,7 +34,7 @@ export function TeamCardGrid({
               <div className="min-w-0 space-y-1">
                 <CardTitle className="truncate text-base">
                   <Link
-                    to={ROUTES.TEAM_DETAIL(team.id)}
+                    to={detailRoute(team.id)}
                     className="hover:underline"
                   >
                     {team.name}

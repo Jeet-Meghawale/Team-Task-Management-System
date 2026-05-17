@@ -1,12 +1,14 @@
 import { useState } from "react"
+import { ClipboardList } from "lucide-react"
 import { ErrorDisplay } from "@/components/feedback/error-display"
+import { EmptyStateCard } from "@/components/shared/empty-state-card"
+import { PageHeader } from "@/components/shared/page-header"
 import { useAuth } from "@/lib/auth/use-auth"
 import { useAssignedTasks } from "@/features/tasks/hooks/use-assigned-tasks"
 import { TaskTable } from "@/features/tasks/components/task-table"
 import { TaskListSkeleton } from "@/features/tasks/components/task-list-skeleton"
 import { TaskDetailSheet } from "@/features/tasks/components/task-detail-sheet"
 import { useTaskMutations } from "@/features/tasks/hooks/use-task-mutations"
-import { Card, CardContent } from "@/components/ui/card"
 
 export function AssignmentsPage() {
   const { user } = useAuth()
@@ -18,12 +20,11 @@ export function AssignmentsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">My assignments</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Tasks assigned to you across all projects.
-        </p>
-      </div>
+      <PageHeader
+        title="My assignments"
+        description="Tasks assigned to you across all projects."
+        hideTitle
+      />
 
       {assignmentsQuery.isLoading ? (
         <TaskListSkeleton />
@@ -33,11 +34,11 @@ export function AssignmentsPage() {
           onRetry={() => assignmentsQuery.refetch()}
         />
       ) : tasks.length === 0 ? (
-        <Card className="border-dashed">
-          <CardContent className="py-12 text-center text-sm text-muted-foreground">
-            You have no assigned tasks right now.
-          </CardContent>
-        </Card>
+        <EmptyStateCard
+          icon={ClipboardList}
+          title="No assignments yet"
+          description="When tasks are assigned to you, they will appear here."
+        />
       ) : (
         <TaskTable
           tasks={tasks}
