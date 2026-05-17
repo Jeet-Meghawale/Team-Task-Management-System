@@ -10,6 +10,10 @@ import { AdminAreaPage } from "@/pages/admin-area-page"
 import { RegisterPage } from "@/pages/register-page"
 import { TeamsPage } from "@/pages/teams-page"
 import { TeamDetailsPage } from "@/pages/team-details-page"
+import { ProjectsPage } from "@/pages/projects-page"
+import { TasksPage } from "@/pages/tasks-page"
+import { AssignmentsPage } from "@/pages/assignments-page"
+import { NotificationsPage } from "@/pages/notifications-page"
 import { AuthLayout } from "@/components/layouts/auth-layout"
 import { AppShellLayout } from "@/components/layouts/app-shell-layout"
 import { GuestRoute } from "@/routes/guest-route"
@@ -46,33 +50,11 @@ export const router = createBrowserRouter([
               { path: "dashboard", element: <DashboardPage /> },
               { path: "teams", element: <TeamsPage /> },
               { path: "teams/:teamId", element: <TeamDetailsPage /> },
-              {
-                path: "tasks",
-                element: (
-                  <AppSectionPlaceholder
-                    title="Tasks"
-                    description="Track work across projects with filters, status updates, and assignments."
-                  />
-                ),
-              },
-              {
-                path: "assignments",
-                element: (
-                  <AppSectionPlaceholder
-                    title="Assignments"
-                    description="View tasks assigned to you and manage workload across the team."
-                  />
-                ),
-              },
-              {
-                path: "notifications",
-                element: (
-                  <AppSectionPlaceholder
-                    title="Notifications"
-                    description="Stay updated on task changes, mentions, and team activity."
-                  />
-                ),
-              },
+              { path: "projects", element: <ProjectsPage /> },
+              { path: "projects/:teamId", element: <TeamDetailsPage variant="projects" /> },
+              { path: "tasks", element: <TasksPage /> },
+              { path: "assignments", element: <AssignmentsPage /> },
+              { path: "notifications", element: <NotificationsPage /> },
               {
                 path: "register",
                 element: (

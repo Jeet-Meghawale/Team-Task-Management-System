@@ -2,6 +2,7 @@ import { Menu, PanelLeftClose, PanelLeftOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ThemeToggle } from "@/components/layouts/app-shell/theme-toggle"
+import { NotificationBell } from "@/features/notifications/components/notification-bell"
 import { UserMenu } from "@/components/layouts/app-shell/user-menu"
 import { usePageTitle } from "@/components/layouts/app-shell/use-page-title"
 import { useAppShell } from "@/components/layouts/app-shell/use-app-shell"
@@ -47,6 +48,7 @@ export function TopBar() {
       </div>
 
       <div className="flex items-center gap-1">
+        <NotificationBell />
         <ThemeToggle />
         <UserMenu collapsed />
       </div>

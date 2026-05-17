@@ -23,7 +23,21 @@ import { TeamDeleteDialog } from "@/features/teams/components/team-delete-dialog
 
 const PAGE_LIMIT = 10
 
-export function TeamsPage() {
+const COPY = {
+  teams: {
+    title: "Teams",
+    subtitle: "Manage project teams, members, and delivery status.",
+    create: "Create team",
+  },
+  projects: {
+    title: "Projects",
+    subtitle: "Plan projects, timelines, and team assignments.",
+    create: "Create project",
+  },
+}
+
+export function TeamsPage({ variant = "teams" }) {
+  const copy = COPY[variant] ?? COPY.teams
   const { user } = useAuth()
   const role = user?.role
 
@@ -68,18 +82,16 @@ export function TeamsPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            Teams
+            {copy.title}
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Manage project teams, members, and delivery status.
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">{copy.subtitle}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <TeamViewToggle view={view} onViewChange={setView} />
           {canManage ? (
             <Button type="button" onClick={() => setCreateOpen(true)}>
               <Plus className="size-4" />
-              Create team
+              {copy.create}
             </Button>
           ) : null}
         </div>

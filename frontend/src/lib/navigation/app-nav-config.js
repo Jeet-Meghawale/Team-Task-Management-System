@@ -2,6 +2,7 @@ import {
   Bell,
   CheckSquare,
   ClipboardList,
+  FolderKanban,
   LayoutDashboard,
   Shield,
   Users,
@@ -22,6 +23,11 @@ export const APP_NAV_ITEMS = [
     label: "Teams",
     href: ROUTES.TEAMS,
     icon: Users,
+  },
+  {
+    label: "Projects",
+    href: ROUTES.PROJECTS,
+    icon: FolderKanban,
   },
   {
     label: "Tasks",
@@ -56,6 +62,18 @@ export function filterNavItemsByRole(items, userRole) {
 export function isNavItemActive(pathname, href) {
   if (href === ROUTES.DASHBOARD) {
     return pathname === ROUTES.DASHBOARD || pathname === ROUTES.APP_ROOT
+  }
+  if (href === ROUTES.TEAMS) {
+    return (
+      pathname === ROUTES.TEAMS ||
+      (pathname.startsWith(`${ROUTES.TEAMS}/`) &&
+        !pathname.startsWith(ROUTES.PROJECTS))
+    )
+  }
+  if (href === ROUTES.PROJECTS) {
+    return (
+      pathname === ROUTES.PROJECTS || pathname.startsWith(`${ROUTES.PROJECTS}/`)
+    )
   }
   return pathname === href || pathname.startsWith(`${href}/`)
 }

@@ -5,6 +5,8 @@ export const ROUTES = {
   DASHBOARD: "/app/dashboard",
   TEAMS: "/app/teams",
   TEAM_DETAIL: (teamId) => `/app/teams/${teamId}`,
+  PROJECTS: "/app/projects",
+  PROJECT_DETAIL: (projectId) => `/app/projects/${projectId}`,
   TASKS: "/app/tasks",
   ASSIGNMENTS: "/app/assignments",
   NOTIFICATIONS: "/app/notifications",

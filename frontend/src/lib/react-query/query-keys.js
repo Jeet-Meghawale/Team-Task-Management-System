@@ -1,8 +1,5 @@
 import { ENDPOINTS } from "@/lib/api/endpoints"
 
-/**
- * Centralized React Query keys. Import and extend per feature (e.g. tasks: { all: ... }).
- */
 export const queryKeys = {
   auth: {
     me: ["auth", "me"],
@@ -16,7 +13,24 @@ export const queryKeys = {
     list: (filters) => ["teams", "list", filters],
     detail: (id) => ["teams", "detail", id],
   },
+  projects: {
+    all: ["projects"],
+    list: (filters) => ["projects", "list", filters],
+    detail: (id) => ["projects", "detail", id],
+  },
+  tasks: {
+    all: ["tasks"],
+    list: (filters) => ["tasks", "list", filters],
+    detail: (id) => ["tasks", "detail", id],
+    assigned: ["tasks", "assigned", "me"],
+  },
+  comments: {
+    task: (taskId) => ["comments", taskId],
+  },
   users: {
+    all: [ENDPOINTS.USERS],
     list: (filters) => [ENDPOINTS.USERS, "list", filters],
+    detail: (id) => [ENDPOINTS.USERS, "detail", id],
+    assignable: ["users", "assignable"],
   },
 }

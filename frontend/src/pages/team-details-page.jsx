@@ -25,8 +25,10 @@ import { TeamFormDialog } from "@/features/teams/components/team-form-dialog"
 import { TeamDeleteDialog } from "@/features/teams/components/team-delete-dialog"
 import { useState } from "react"
 
-export function TeamDetailsPage() {
+export function TeamDetailsPage({ variant = "teams" }) {
   const { teamId } = useParams()
+  const listRoute = variant === "projects" ? ROUTES.PROJECTS : ROUTES.TEAMS
+  const entityLabel = variant === "projects" ? "Project" : "Team"
   const { user } = useAuth()
   const role = user?.role
 
@@ -54,8 +56,8 @@ export function TeamDetailsPage() {
   if (!team) {
     return (
       <ErrorDisplay
-        title="Team not found"
-        error={new Error("This team may have been removed.")}
+        title={`${entityLabel} not found`}
+        error={new Error(`This ${entityLabel.toLowerCase()} may have been removed.`)}
       />
     )
   }
@@ -65,9 +67,9 @@ export function TeamDetailsPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-3">
           <Button asChild variant="ghost" size="sm" className="-ml-2 w-fit">
-            <Link to={ROUTES.TEAMS}>
+            <Link to={listRoute}>
               <ArrowLeft className="size-4" />
-              Back to teams
+              Back to {variant === "projects" ? "projects" : "teams"}
             </Link>
           </Button>
           <div className="space-y-2">
@@ -108,7 +110,7 @@ export function TeamDetailsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Overview</CardTitle>
-          <CardDescription>Team timeline and workload snapshot</CardDescription>
+          <CardDescription>{entityLabel} timeline and workload snapshot</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <OverviewItem label="Members" value={team.memberCount} />

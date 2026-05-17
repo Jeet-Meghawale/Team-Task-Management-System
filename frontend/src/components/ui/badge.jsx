@@ -29,4 +29,7 @@ function Badge({ className, variant = "default", ...props }) {
   )
 }
 
-export { Badge, badgeVariants }
+export { Badge }
+
+// eslint-disable-next-line react-refresh/only-export-components -- shadcn variants
+export { badgeVariants }
