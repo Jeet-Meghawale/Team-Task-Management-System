@@ -21,7 +21,7 @@ export function SidebarBrand({ collapsed }) {
             Taskboard
           </span>
           <span className="truncate text-xs text-sidebar-foreground/60">
-            Workspace
+            Project management
           </span>
         </span>
       ) : null}

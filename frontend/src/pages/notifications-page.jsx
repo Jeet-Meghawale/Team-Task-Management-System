@@ -20,7 +20,7 @@ export function NotificationsPage() {
     <div className="space-y-6">
       <PageHeader
         title="Notifications"
-        description="Activity from tasks, comments, and workspace updates."
+        description="Updates on tasks, comments, and project activity."
         hideTitle
         actions={
           unreadCount > 0 ? (
@@ -36,7 +36,7 @@ export function NotificationsPage() {
         <EmptyStateCard
           icon={Bell}
           title="All caught up"
-          description="Notifications appear when you create tasks or comments."
+          description="You'll see updates here when tasks are assigned, commented on, or changed."
         />
       ) : (
         <ul className="space-y-2">

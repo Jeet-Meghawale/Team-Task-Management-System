@@ -62,7 +62,7 @@ export function LoginForm() {
   return (
     <AuthFormCard
       title="Sign in"
-      description="Enter your workspace email and password to continue."
+      description="Sign in with your work email and password."
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

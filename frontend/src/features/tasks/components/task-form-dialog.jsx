@@ -154,7 +154,7 @@ export function TaskFormDialog({
           <DialogDescription>
             {isEdit
               ? "Update task details, assignment, and schedule."
-              : "Add a new task to a project and assign it to a team member."}
+              : "Add a task to a project and assign it to a teammate."}
           </DialogDescription>
         </DialogHeader>
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { LogOut, Settings, UserPlus } from "lucide-react"
+import { LogOut, UserPlus } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -86,10 +86,6 @@ export function UserMenu({ collapsed = false, className }) {
               </Link>
             </DropdownMenuItem>
           ) : null}
-          <DropdownMenuItem disabled>
-            <Settings />
-            Account settings
-          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive" onClick={logout}>

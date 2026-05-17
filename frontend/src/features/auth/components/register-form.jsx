@@ -70,7 +70,7 @@ export function RegisterForm() {
   return (
     <AuthFormCard
       title="Create user"
-      description="Register a new team member. Requires an administrator session."
+      description="Add a new user to your organization. Admin access required."
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -83,7 +83,7 @@ export function RegisterForm() {
                 <FormControl>
                   <Input
                     autoComplete="name"
-                    placeholder="Jane Doe"
+                    placeholder="Alex Johnson"
                     disabled={isSubmitting}
                     {...field}
                   />
@@ -103,7 +103,7 @@ export function RegisterForm() {
                   <Input
                     type="email"
                     autoComplete="email"
-                    placeholder="jane@company.com"
+                    placeholder="alex@company.com"
                     disabled={isSubmitting}
                     {...field}
                   />

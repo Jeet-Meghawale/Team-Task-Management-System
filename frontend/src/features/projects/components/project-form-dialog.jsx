@@ -105,7 +105,7 @@ export function ProjectFormDialog({
           <DialogDescription>
             {isEdit
               ? "Update project details and workflow status."
-              : "Set up a new project workspace for members and tasks."}
+              : "Define a new project for your team to plan and deliver work."}
           </DialogDescription>
         </DialogHeader>
 
@@ -121,7 +121,7 @@ export function ProjectFormDialog({
                 <FormItem>
                   <FormLabel>Project name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Platform squad" disabled={isSubmitting} {...field} />
+                    <Input placeholder="Customer portal redesign" disabled={isSubmitting} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -138,7 +138,7 @@ export function ProjectFormDialog({
                     <textarea
                       rows={3}
                       disabled={isSubmitting}
-                      placeholder="What does this project own?"
+                      placeholder="Goals, scope, and key deliverables"
                       className={cn(
                         "flex min-h-20 w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-sm",
                         "placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none",

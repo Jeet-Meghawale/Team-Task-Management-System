@@ -26,7 +26,7 @@ export function DashboardPage() {
       <PageHeader
         title="Dashboard"
         hideTitle
-        description={`Welcome back, ${user?.name ?? "there"}. Overview of projects, tasks, and team workload across your workspace.`}
+        description={`Welcome back, ${user?.name ?? "there"}. Here's an overview of projects, tasks, and delivery across your organization.`}
       />
 
       <QueryState

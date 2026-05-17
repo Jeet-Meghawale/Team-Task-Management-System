@@ -9,7 +9,7 @@ export function AuthLayout() {
           to={ROUTES.LOGIN}
           className="text-sm font-medium text-foreground hover:underline"
         >
-          Task &amp; Team Management
+          Taskboard
         </Link>
       </header>
       <main className="flex flex-1 items-center justify-center p-6">

@@ -13,7 +13,7 @@ export function DashboardStatsGrid({ stats }) {
       <StatCard
         title="Total Projects"
         value={stats.totalProjects}
-        description="Active workspaces"
+        description="In your organization"
         icon={FolderKanban}
         iconClassName="text-blue-600 dark:text-blue-400"
       />

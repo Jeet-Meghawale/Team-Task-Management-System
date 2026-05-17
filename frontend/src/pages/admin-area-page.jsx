@@ -35,7 +35,7 @@ export function AdminAreaPage() {
     <div className="space-y-6">
       <PageHeader
         title="User management"
-        description="Manage roles and account status for workspace members."
+        description="Manage roles and account status for people in your organization."
         hideTitle
         actions={
           <div className="relative w-full sm:max-w-xs">

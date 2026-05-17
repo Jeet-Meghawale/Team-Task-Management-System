@@ -57,7 +57,7 @@ export function ProjectMembersSection({
               <p className="text-sm font-medium text-foreground">No members yet</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {showAssign
-                  ? "Add teammates to collaborate on this project's work."
+                  ? "Add members to collaborate on this project."
                   : "Members will appear here once assigned by an admin or manager."}
               </p>
             </div>
@@ -93,7 +93,7 @@ export function ProjectMembersSection({
           )}
           {showAssign && !canBrowseUsersForAssignment(userRole) ? (
             <p className="mt-3 text-xs text-muted-foreground">
-              User search for assignment is available to administrators.
+              Contact an administrator to add members from the user directory.
             </p>
           ) : null}
         </CardContent>

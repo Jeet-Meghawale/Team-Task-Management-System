@@ -33,7 +33,7 @@ export function TaskStatusSummary({ stats }) {
         ) : (
           <SummaryEmpty
             title="No tasks to summarize"
-            description="Status breakdowns appear when tasks exist in your workspace."
+            description="Create tasks to see how work is distributed by status."
           />
         )}
       </CardContent>

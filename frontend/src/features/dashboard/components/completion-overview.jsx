@@ -13,7 +13,7 @@ export function CompletionOverview({ stats }) {
       <CardHeader>
         <CardTitle>Completion overview</CardTitle>
         <CardDescription>
-          Track how much work is done versus still open across your workspace.
+          See how much work is complete versus still in progress.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">

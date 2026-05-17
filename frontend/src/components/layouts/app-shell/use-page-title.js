@@ -12,6 +12,6 @@ export function usePageTitle() {
     const match = APP_NAV_ITEMS.find((item) =>
       isNavItemActive(pathname, item.href),
     )
-    return match?.label ?? "Workspace"
+    return match?.label ?? "Taskboard"
   }, [pathname])
 }

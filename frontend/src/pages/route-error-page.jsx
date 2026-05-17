@@ -1,43 +1,38 @@
 import { isRouteErrorResponse, Link, useRouteError } from "react-router-dom"
-import { getApiErrorMessage } from "@/lib/api/error-message"
+import { Button } from "@/components/ui/button"
 import { ROUTES } from "@/lib/constants/routes"
 
 export function RouteErrorPage() {
   const error = useRouteError()
 
   if (isRouteErrorResponse(error)) {
+    const isNotFound = error.status === 404
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 px-6 text-center">
         <h1 className="text-2xl font-semibold">
-          {error.status} {error.statusText}
+          {isNotFound ? "Page not found" : "Something went wrong"}
         </h1>
         <p className="max-w-md text-sm text-muted-foreground">
-          {typeof error.data === "string"
-            ? error.data
-            : "This route failed to render."}
+          {isNotFound
+            ? "The page you're looking for doesn't exist or may have moved."
+            : "We couldn't load this page. Please try again or return home."}
         </p>
-        <Link
-          to={ROUTES.HOME}
-          className="text-sm font-medium text-primary underline-offset-4 hover:underline"
-        >
-          Go home
-        </Link>
+        <Button asChild variant="outline">
+          <Link to={ROUTES.HOME}>Go home</Link>
+        </Button>
       </div>
     )
   }
 
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 px-6 text-center">
-      <h1 className="text-2xl font-semibold">Unexpected error</h1>
+      <h1 className="text-2xl font-semibold">Something went wrong</h1>
       <p className="max-w-md text-sm text-muted-foreground">
-        {getApiErrorMessage(error)}
+        An unexpected error occurred. Please refresh the page or try again later.
       </p>
-      <Link
-        to={ROUTES.HOME}
-        className="text-sm font-medium text-primary underline-offset-4 hover:underline"
-      >
-        Go home
-      </Link>
+      <Button asChild variant="outline">
+        <Link to={ROUTES.HOME}>Go home</Link>
+      </Button>
     </div>
   )
 }
