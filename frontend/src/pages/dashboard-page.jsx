@@ -1,11 +1,11 @@
 import { useMemo } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { QueryState } from "@/components/feedback/query-state"
+import { PageHeader } from "@/components/shared/page-header"
 import { useAuth } from "@/lib/auth/use-auth"
 import { queryKeys } from "@/lib/react-query/query-keys"
 import { fetchDashboardStats } from "@/services/dashboard.service"
 import { normalizeDashboardStats } from "@/features/dashboard/lib/dashboard-stats"
-import { PageHeader } from "@/components/shared/page-header"
 import { DashboardSkeleton } from "@/features/dashboard/components/dashboard-skeleton"
 import { DashboardView } from "@/features/dashboard/components/dashboard-view"
 
@@ -22,11 +22,11 @@ export function DashboardPage() {
   )
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <PageHeader
         title="Dashboard"
         hideTitle
-        description={`Welcome back, ${user?.name ?? "there"}. Here's an overview of projects, tasks, and delivery across your organization.`}
+        description={`Welcome back, ${user?.name ?? "there"}. Here's how your projects and tasks are performing.`}
       />
 
       <QueryState

@@ -13,37 +13,38 @@ export function DashboardStatsGrid({ stats }) {
       <StatCard
         title="Total Projects"
         value={stats.totalProjects}
-        description="In your organization"
+        description="Active in your org"
         icon={FolderKanban}
-        iconClassName="text-blue-600 dark:text-blue-400"
+        accent="secondary"
       />
       <StatCard
         title="Total Tasks"
         value={stats.totalTasks}
         description="Across all projects"
         icon={ListTodo}
-        iconClassName="text-violet-600 dark:text-violet-400"
+        accent="primary"
       />
       <StatCard
         title="Completed"
         value={stats.completedTasks}
         description={`${stats.completionRate}% completion rate`}
         icon={CheckCircle2}
-        iconClassName="text-emerald-600 dark:text-emerald-400"
+        accent="success"
+        trend={stats.completionRate > 0 ? "On track" : undefined}
       />
       <StatCard
         title="Pending"
         value={stats.pendingTasks}
-        description="Not yet completed"
+        description="Awaiting completion"
         icon={Clock}
-        iconClassName="text-amber-600 dark:text-amber-400"
+        accent="accent"
       />
       <StatCard
         title="Overdue"
         value={stats.overdueTasks}
-        description="Past due date"
+        description="Needs attention"
         icon={AlertTriangle}
-        iconClassName="text-rose-600 dark:text-rose-400"
+        accent="danger"
       />
     </div>
   )

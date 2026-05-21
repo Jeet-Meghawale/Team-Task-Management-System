@@ -4,11 +4,14 @@ import { ROUTES } from "@/lib/constants/routes"
 export function AuthLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="border-b border-border px-6 py-4">
+      <header className="border-b border-white/5 bg-background/80 px-6 py-4 backdrop-blur-xl">
         <Link
           to={ROUTES.LOGIN}
-          className="text-sm font-medium text-foreground hover:underline"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-foreground"
         >
+          <span className="gradient-primary flex size-8 items-center justify-center rounded-lg text-white">
+            T
+          </span>
           Taskboard
         </Link>
       </header>

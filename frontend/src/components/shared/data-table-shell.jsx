@@ -4,7 +4,7 @@ export function DataTableShell({ children, className }) {
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-xl bg-card/40 ring-1 ring-border/60",
+        "glass-card overflow-hidden",
         className,
       )}
     >

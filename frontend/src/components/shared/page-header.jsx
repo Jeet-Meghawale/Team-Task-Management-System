@@ -1,8 +1,5 @@
 import { cn } from "@/lib/utils"
 
-/**
- * Page chrome. Top app bar already shows the nav label — use hideTitle on list pages.
- */
 export function PageHeader({
   title,
   description,
@@ -21,7 +18,7 @@ export function PageHeader({
         {title ? (
           <h1
             className={cn(
-              "text-2xl font-semibold tracking-tight text-foreground",
+              "text-2xl font-bold tracking-tight text-foreground md:text-3xl",
               hideTitle && "sr-only",
             )}
           >
@@ -29,7 +26,9 @@ export function PageHeader({
           </h1>
         ) : null}
         {description ? (
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="max-w-2xl text-sm text-muted-foreground md:text-base">
+            {description}
+          </p>
         ) : null}
       </div>
       {actions ? (

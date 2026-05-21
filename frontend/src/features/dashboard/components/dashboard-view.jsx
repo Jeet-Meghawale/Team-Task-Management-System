@@ -1,4 +1,5 @@
 import { DashboardStatsGrid } from "@/features/dashboard/components/dashboard-stats-grid"
+import { DashboardActivity } from "@/features/dashboard/components/dashboard-activity"
 import { CompletionOverview } from "@/features/dashboard/components/completion-overview"
 import { TaskStatusSummary } from "@/features/dashboard/components/task-status-summary"
 import { TaskPrioritySummary } from "@/features/dashboard/components/task-priority-summary"
@@ -11,10 +12,15 @@ export function DashboardView({ stats }) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <DashboardStatsGrid stats={stats} />
-      <CompletionOverview stats={stats} />
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-6 xl:grid-cols-3">
+        <div className="xl:col-span-2">
+          <CompletionOverview stats={stats} />
+        </div>
+        <DashboardActivity stats={stats} />
+      </div>
+      <div className="grid gap-6 lg:grid-cols-2">
         <TaskStatusSummary stats={stats} />
         <TaskPrioritySummary stats={stats} />
       </div>

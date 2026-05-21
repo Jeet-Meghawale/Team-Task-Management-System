@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { GlassCard } from "@/components/shared/glass-card"
 import {
   BreakdownBar,
   BreakdownList,
@@ -16,30 +10,28 @@ export function TaskPrioritySummary({ stats }) {
   const hasTasks = hasTaskBreakdown(stats)
 
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle>Task priority</CardTitle>
-        <CardDescription>How work is distributed by urgency</CardDescription>
-      </CardHeader>
-      <CardContent>
-        {hasTasks ? (
-          <div className="space-y-5">
-            <BreakdownBar
-              segments={stats.taskPriorityStats}
-              total={stats.totalTasks}
-            />
-            <BreakdownList
-              items={stats.taskPriorityStats}
-              total={stats.totalTasks}
-            />
-          </div>
-        ) : (
-          <SummaryEmpty
-            title="No priority data"
-            description="Priority insights appear once tasks are created."
+    <GlassCard className="h-full p-5">
+      <div className="mb-5">
+        <h3 className="text-base font-semibold text-foreground">Task priority</h3>
+        <p className="text-sm text-muted-foreground">How work is distributed by urgency</p>
+      </div>
+      {hasTasks ? (
+        <div className="space-y-5">
+          <BreakdownBar
+            segments={stats.taskPriorityStats}
+            total={stats.totalTasks}
           />
-        )}
-      </CardContent>
-    </Card>
+          <BreakdownList
+            items={stats.taskPriorityStats}
+            total={stats.totalTasks}
+          />
+        </div>
+      ) : (
+        <SummaryEmpty
+          title="No priority data"
+          description="Priority insights appear once tasks are created."
+        />
+      )}
+    </GlassCard>
   )
 }

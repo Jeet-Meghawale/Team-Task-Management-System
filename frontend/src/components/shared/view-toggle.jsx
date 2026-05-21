@@ -6,15 +6,21 @@ export function ViewToggle({ value, onChange, options, className }) {
     <div
       role="group"
       aria-label="View mode"
-      className={cn("inline-flex rounded-lg border border-border bg-muted/30 p-0.5", className)}
+      className={cn(
+        "inline-flex rounded-2xl border border-white/5 bg-muted/40 p-1",
+        className,
+      )}
     >
       {options.map((option) => (
         <Button
           key={option.value}
           type="button"
           size="sm"
-          variant={value === option.value ? "secondary" : "ghost"}
-          className="h-7 gap-1.5 px-2.5"
+          variant={value === option.value ? "default" : "ghost"}
+          className={cn(
+            "h-8 gap-1.5 rounded-xl px-3",
+            value !== option.value && "text-muted-foreground",
+          )}
           aria-pressed={value === option.value}
           onClick={() => onChange(option.value)}
         >

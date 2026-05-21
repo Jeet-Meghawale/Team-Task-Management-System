@@ -16,13 +16,13 @@ export const PROJECT_STATUS_FILTER_ALL = "ALL"
 
 export const PROJECT_STATUS_STYLES = {
   [PROJECT_STATUSES.PLANNED]:
-    "border-slate-200/80 bg-slate-100/80 text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200",
+    "rounded-full border-slate-500/30 bg-slate-500/15 text-slate-300",
   [PROJECT_STATUSES.ACTIVE]:
-    "border-emerald-200/80 bg-emerald-50/80 text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/60 dark:text-emerald-200",
+    "rounded-full border-brand-secondary/30 bg-brand-secondary/15 text-cyan-300",
   [PROJECT_STATUSES.COMPLETED]:
-    "border-blue-200/80 bg-blue-50/80 text-blue-800 dark:border-blue-900/60 dark:bg-blue-950/60 dark:text-blue-200",
+    "rounded-full border-brand-success/30 bg-brand-success/15 text-emerald-300",
   [PROJECT_STATUSES.ON_HOLD]:
-    "border-amber-200/80 bg-amber-50/80 text-amber-800 dark:border-amber-900/60 dark:bg-amber-950/60 dark:text-amber-200",
+    "rounded-full border-brand-accent/30 bg-brand-accent/15 text-amber-300",
 }
 
 export function getProjectStatusLabel(status) {

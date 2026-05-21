@@ -5,7 +5,7 @@ import {
   FolderKanban,
   Layers,
   Shield,
-  Users,
+  Sparkles,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ROUTES } from "@/lib/constants/routes"
@@ -35,22 +35,22 @@ const FEATURES = [
 export function HomePage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="border-b border-border/60">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
+      <header className="sticky top-0 z-40 border-b border-white/5 bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link
             to={ROUTES.HOME}
             className="flex items-center gap-2.5 font-semibold text-foreground"
           >
-            <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Layers className="size-4" aria-hidden />
+            <span className="gradient-primary flex size-9 items-center justify-center rounded-xl shadow-lg shadow-brand-primary/30">
+              <Layers className="size-4 text-white" aria-hidden />
             </span>
             Taskboard
           </Link>
           <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" size="sm">
+            <Button asChild variant="ghost" size="sm" className="rounded-xl">
               <Link to={ROUTES.LOGIN}>Sign in</Link>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild size="sm" className="rounded-xl">
               <Link to={ROUTES.LOGIN}>
                 Get started
                 <ArrowRight className="size-4" aria-hidden />
@@ -61,44 +61,45 @@ export function HomePage() {
       </header>
 
       <main className="flex-1">
-        <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <div className="grid items-center gap-14 lg:grid-cols-2">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground">
-                <Users className="size-3.5" aria-hidden />
-                Project & task management for modern teams
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 px-4 py-1.5 text-xs font-medium text-violet-300">
+                <Sparkles className="size-3.5" aria-hidden />
+                Premium work management
               </div>
-              <div className="space-y-4">
-                <h1 className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl md:leading-[1.1]">
-                  Plan projects. Ship work. Stay aligned.
+              <div className="space-y-5">
+                <h1 className="text-4xl font-bold tracking-tight md:text-5xl md:leading-[1.08]">
+                  <span className="gradient-text">Plan projects.</span>
+                  <br />
+                  Ship work. Stay aligned.
                 </h1>
-                <p className="max-w-lg text-lg text-muted-foreground">
+                <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
                   Taskboard brings projects, assignments, and delivery visibility
-                  into one calm workspace—so your team always knows what matters
-                  next.
+                  into one beautiful workspace—built for teams that move fast.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Button asChild size="lg">
+                <Button asChild size="lg" className="rounded-xl px-6">
                   <Link to={ROUTES.LOGIN}>
                     Sign in to your account
                     <ArrowRight className="size-4" aria-hidden />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="rounded-xl">
                   <a href="#features">See how it works</a>
                 </Button>
               </div>
             </div>
-            <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+            <div className="relative">
               <div
-                className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/10 via-transparent to-muted/40 blur-2xl"
+                className="pointer-events-none absolute -inset-8 rounded-full bg-brand-primary/20 blur-3xl"
                 aria-hidden
               />
               <img
                 src={heroImage}
-                alt="Taskboard dashboard showing projects and tasks"
-                className="relative w-full rounded-2xl border border-border/60 shadow-xl ring-1 ring-border/40"
+                alt="Taskboard dashboard"
+                className="relative w-full rounded-2xl border border-white/10 shadow-2xl shadow-black/50 ring-1 ring-white/10"
               />
             </div>
           </div>
@@ -106,30 +107,27 @@ export function HomePage() {
 
         <section
           id="features"
-          className="border-t border-border/60 bg-muted/20 scroll-mt-8"
+          className="border-t border-white/5 bg-muted/20 py-20 scroll-mt-8"
         >
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl px-6">
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+              <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
                 Everything you need to run delivery
               </h2>
-              <p className="mt-2 text-muted-foreground">
-                From intake to completion, keep projects and tasks connected in
-                one product experience.
+              <p className="mt-3 text-muted-foreground">
+                A focused toolkit for modern product and engineering teams.
               </p>
             </div>
-            <ul className="mt-12 grid gap-6 md:grid-cols-3">
+            <ul className="mt-14 grid gap-6 md:grid-cols-3">
               {FEATURES.map((feature) => (
                 <li
                   key={feature.title}
-                  className="rounded-xl bg-card/60 p-6 ring-1 ring-border/60"
+                  className="glass-card p-6 transition-all duration-300 hover:glow-primary"
                 >
-                  <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-primary/25 to-brand-secondary/10 text-brand-primary">
                     <feature.icon className="size-5" aria-hidden />
                   </span>
-                  <h3 className="mt-4 font-medium text-foreground">
-                    {feature.title}
-                  </h3>
+                  <h3 className="mt-5 text-base font-semibold">{feature.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {feature.description}
                   </p>
@@ -140,7 +138,7 @@ export function HomePage() {
         </section>
       </main>
 
-      <footer className="border-t border-border/60 py-8">
+      <footer className="border-t border-white/5 py-10">
         <p className="text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} Taskboard. All rights reserved.
         </p>

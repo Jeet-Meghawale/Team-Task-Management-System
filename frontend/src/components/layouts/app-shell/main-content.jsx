@@ -5,12 +5,9 @@ export function MainContent({ children, className }) {
     <main
       id="main-content"
       tabIndex={-1}
-      className={cn(
-        "flex-1 overflow-y-auto bg-background outline-none",
-        className,
-      )}
+      className={cn("flex-1 overflow-y-auto outline-none", className)}
     >
-      <div className="mx-auto w-full max-w-7xl px-4 py-6 pb-10 md:px-6 md:py-8">
+      <div className="mx-auto w-full max-w-[90rem] px-4 py-6 pb-12 md:px-8 md:py-8">
         {children}
       </div>
     </main>

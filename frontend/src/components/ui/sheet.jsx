@@ -35,7 +35,7 @@ function SheetOverlay({ className, ...props }) {
 const sheetSideClasses = {
   left: "inset-y-0 left-0 h-full w-[min(100%,18rem)] border-r data-open:slide-in-from-left data-closed:slide-out-to-left",
   right:
-    "inset-y-0 right-0 h-full w-[min(100%,18rem)] border-l data-open:slide-in-from-right data-closed:slide-out-to-right",
+    "inset-y-0 right-0 h-full w-[min(100%,24rem)] border-l border-white/10 bg-card/95 backdrop-blur-xl data-open:slide-in-from-right data-closed:slide-out-to-right",
 }
 
 function SheetContent({

@@ -32,7 +32,10 @@ export function TaskDetailSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
+      <SheetContent
+        side="right"
+        className="w-full overflow-y-auto border-white/10 bg-card/95 backdrop-blur-xl sm:max-w-lg"
+      >
         {taskQuery.isLoading ? (
           <div className="flex min-h-[40vh] items-center justify-center">
             <Loader2 className="size-6 animate-spin text-muted-foreground" />

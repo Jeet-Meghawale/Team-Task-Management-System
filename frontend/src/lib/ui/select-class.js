@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 
 export const nativeSelectClassName = cn(
-  "h-9 w-full rounded-lg border border-input bg-background px-2.5 text-sm text-foreground",
-  "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none",
-  "disabled:pointer-events-none disabled:opacity-50 dark:border-input dark:bg-input/40",
+  "h-10 w-full rounded-2xl border border-white/10 bg-muted/30 px-3.5 text-sm text-foreground",
+  "transition-all duration-200 focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/25 outline-none",
+  "disabled:pointer-events-none disabled:opacity-50",
 )
